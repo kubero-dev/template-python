@@ -2,8 +2,9 @@
 
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import time
+import sys
 
-hostName = "localhost"
+hostName = ""
 serverPort = 8080
 
 class MyServer(BaseHTTPRequestHandler):
@@ -18,8 +19,9 @@ class MyServer(BaseHTTPRequestHandler):
         self.wfile.write(bytes("</body></html>", "utf-8"))
 
 if __name__ == "__main__":
+    print("Starting server.", file=sys.stderr)
     webServer = HTTPServer((hostName, serverPort), MyServer)
-    print("Server started http://%s:%s" % (hostName, serverPort))
+    print(f"Server started http://{hostName}:{serverPort}", file=sys.stderr)
 
     try:
         webServer.serve_forever()
@@ -27,4 +29,4 @@ if __name__ == "__main__":
         pass
 
     webServer.server_close()
-    print("Server stopped.")
+    print("Server stopped.", file=sys.stderr)
